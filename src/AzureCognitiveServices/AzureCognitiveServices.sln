@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29521.150
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureCognitiveServices", "AzureCognitiveServices\AzureCognitiveServices.csproj", "{A53F53AA-C5DF-40CF-9460-094A50D3AA67}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Vision", "Vision", "{851FD9F3-4DDB-429D-BE5E-925E5488C33E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Face", "Face\Face.csproj", "{6D860A0E-128B-4DBA-8F85-E592FEFB8254}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A53F53AA-C5DF-40CF-9460-094A50D3AA67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A53F53AA-C5DF-40CF-9460-094A50D3AA67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A53F53AA-C5DF-40CF-9460-094A50D3AA67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A53F53AA-C5DF-40CF-9460-094A50D3AA67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D860A0E-128B-4DBA-8F85-E592FEFB8254}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D860A0E-128B-4DBA-8F85-E592FEFB8254}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D860A0E-128B-4DBA-8F85-E592FEFB8254}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D860A0E-128B-4DBA-8F85-E592FEFB8254}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6D860A0E-128B-4DBA-8F85-E592FEFB8254} = {851FD9F3-4DDB-429D-BE5E-925E5488C33E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BF507A36-2095-4445-9B80-77B203231EFC}
+	EndGlobalSection
+EndGlobal
