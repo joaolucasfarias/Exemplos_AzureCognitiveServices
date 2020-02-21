@@ -1,0 +1,47 @@
+﻿@page
+@model AzureCognitiveServices.FaceModel
+@{
+    ViewData["Title"] = "Face";
+}
+
+<h1>Face</h1>
+
+<div class="row">
+    <div class="col-6">
+        <fieldset>
+            <legend>Testar com uma URL</legend>
+            <form method="post">
+                <div class="form-group">
+                    <label for="url">URL de uma imagem contendo rostos:</label>
+                    <input type="url" class="form-control" name="url" id="url" />
+                </div>
+                <button type="submit" class="btn btn-primary">Detectar faces</button>
+            </form>
+        </fieldset>
+    </div>
+
+    <div class="col-6">
+        <fieldset>
+            <legend>Testar com um arquivo</legend>
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="arquivo">Arquivo de uma imagem contendo rostos:</label>
+                    <input type="file" class="form-control-file" asp-for="Arquivo" id="arquivo" />
+                </div>
+                <button type="submit" class="btn btn-primary">Detectar faces</button></form>
+        </fieldset>
+    </div>
+</div>
+
+@if (!(Model.Mensagens is null))
+{
+    @foreach (var mensagem in Model.Mensagens)
+    {
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            @mensagem
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+}
