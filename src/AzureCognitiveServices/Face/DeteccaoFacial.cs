@@ -11,14 +11,14 @@ namespace Face
         private const string _chave = "<sua chave>";
         private const string _endpoint = "<seu endpoint>";
 
-        private IFaceClient _servicoCongnitivoDeFace;
+        private IFaceClient _servicoCognitivoDeFace;
 
         public DeteccaoFacial() =>
-            _servicoCongnitivoDeFace = new FaceClient(new ApiKeyServiceClientCredentials(_chave)) { Endpoint = _endpoint };
+            _servicoCognitivoDeFace = new FaceClient(new ApiKeyServiceClientCredentials(_chave)) { Endpoint = _endpoint };
 
         public async Task<ICollection<string>> DetectarRostosPorUrl(string url)
         {
-            var rostosDetectados = await _servicoCongnitivoDeFace.Face.DetectWithUrlAsync(url,
+            var rostosDetectados = await _servicoCognitivoDeFace.Face.DetectWithUrlAsync(url,
                     returnFaceAttributes: new List<FaceAttributeType> { FaceAttributeType.Age, FaceAttributeType.Emotion,
                 FaceAttributeType.Gender, FaceAttributeType.Smile });
 
@@ -29,7 +29,7 @@ namespace Face
         {
             var arquivo = new FileStream(localDoArquivo, FileMode.Open);
 
-            var rostosDetectados = await _servicoCongnitivoDeFace.Face.DetectWithStreamAsync(arquivo,
+            var rostosDetectados = await _servicoCognitivoDeFace.Face.DetectWithStreamAsync(arquivo,
                 returnFaceAttributes: new List<FaceAttributeType> { FaceAttributeType.Age, FaceAttributeType.Emotion,
                 FaceAttributeType.Gender, FaceAttributeType.Smile });
 
