@@ -11,13 +11,13 @@ namespace AzureCognitiveServices
     {
         public ICollection<string> Mensagens { get; private set; }
 
-
         private IWebHostEnvironment _environment;
-        public FaceModel(IWebHostEnvironment environment) =>
-            _environment = environment;
 
         [BindProperty]
         public IFormFile Arquivo { get; set; }
+
+        public FaceModel(IWebHostEnvironment environment) =>
+            _environment = environment;
 
         public void OnPost()
         {
