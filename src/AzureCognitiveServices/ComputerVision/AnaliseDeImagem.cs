@@ -1,8 +1,8 @@
 ﻿using Microsoft.Azure.CognitiveServices.Vision.ComputerVision;
 using Microsoft.Azure.CognitiveServices.Vision.ComputerVision.Models;
-using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ComputerVision
@@ -46,99 +46,127 @@ namespace ComputerVision
 
         public ICollection<string> RetornarLegenda(ImageAnalysis analiseRealizada)
         {
-            foreach (var caption in analiseRealizada.Description.Captions)
-            {
-                Console.WriteLine($"{caption.Text} with confidence {caption.Confidence}");
-            }
-            return new List<string>(0);
+            if (analiseRealizada.Description.Captions.Count == 0)
+                return new List<string> { "Não foi possível definir o que há na imagem." };
+
+            var legendas = new List<string>(analiseRealizada.Description.Captions.Count);
+
+            legendas
+                .AddRange(analiseRealizada
+                    .Description
+                    .Captions
+                    .Select(c => $"{c.Text} ({c.Confidence * 100:n2}% de certeza)"));
+
+            return legendas;
         }
 
         public ICollection<string> RetornarCategorias(ImageAnalysis analiseRealizada)
         {
-            foreach (var category in analiseRealizada.Categories)
-            {
-                Console.WriteLine($"{category.Name} with confidence {category.Score}");
-            }
-            return new List<string>(0);
+            if (analiseRealizada.Categories.Count == 0)
+                return new List<string> { "Não foi possível categorizar a imagem." };
+
+            var categorias = new List<string>(analiseRealizada.Categories.Count);
+
+            categorias
+                .AddRange(analiseRealizada
+                    .Categories
+                    .Select(c => $"{c.Name} ({c.Score * 100:n2}% de certeza)"));
+
+            return categorias;
         }
 
-        public ICollection<string> RetornarTags(ImageAnalysis analiseRealizada)
+        public string RetornarTags(ImageAnalysis analiseRealizada)
         {
-            foreach (var tag in analiseRealizada.Tags)
-            {
-                Console.WriteLine($"{tag.Name} {tag.Confidence}");
-            }
-            return new List<string>(0);
+            if (analiseRealizada.Tags.Count == 0)
+                return "Não foi possível tagear a imagem.";
+
+            return analiseRealizada
+                .Tags
+                .Aggregate(string.Empty, (atual, tag) => $"{atual}{tag.Name} ({tag.Confidence * 100:n2}% de certeza) - ");
         }
 
         public ICollection<string> RetornarLogos(ImageAnalysis analiseRealizada)
         {
-            foreach (var brand in analiseRealizada.Brands)
-            {
-                Console.WriteLine($"Logo of {brand.Name} with confidence {brand.Confidence} at location {brand.Rectangle.X}, " +
-                  $"{brand.Rectangle.X + brand.Rectangle.W}, {brand.Rectangle.Y}, {brand.Rectangle.Y + brand.Rectangle.H}");
-            }
-            return new List<string>(0);
+            if (analiseRealizada.Brands.Count == 0)
+                return new List<string> { "Não foi possível identificar logos na imagem." };
+
+            var logos = new List<string>(analiseRealizada.Brands.Count);
+
+            logos
+                .AddRange(analiseRealizada
+                    .Brands
+                    .Select(l => $"{l.Name} ({l.Confidence * 100:n2}% de certeza)"));
+
+            return logos;
         }
 
         public ICollection<string> RetornarRostos(ImageAnalysis analiseRealizada)
         {
-            foreach (var face in analiseRealizada.Faces)
-            {
-                Console.WriteLine($"A {face.Gender} of age {face.Age} at location {face.FaceRectangle.Left}, " +
-                  $"{face.FaceRectangle.Left}, {face.FaceRectangle.Top + face.FaceRectangle.Width}, " +
-                  $"{face.FaceRectangle.Top + face.FaceRectangle.Height}");
-            }
-            return new List<string>(0);
+            if (analiseRealizada.Faces.Count == 0)
+                return new List<string> { "Não foi possível identificar rostos na imagem." };
+
+            var rostos = new List<string>(analiseRealizada.Faces.Count);
+
+            rostos
+                .AddRange(analiseRealizada
+                    .Faces
+                    .Select(f => $"Possivelmente {("female".Equals(f.Gender.ToString().ToLower()) ? "mulher" : "homem")} com {f.Age} anos."));
+
+            return rostos;
         }
 
-        public ICollection<string> RetornarConteudoAdultoOuSensivel(ImageAnalysis analiseRealizada)
-        {
-            Console.WriteLine($"Has adult content: {analiseRealizada.Adult.IsAdultContent} with confidence {analiseRealizada.Adult.AdultScore}");
-            Console.WriteLine($"Has racy content: {analiseRealizada.Adult.IsRacyContent} with confidence {analiseRealizada.Adult.RacyScore}");
-            return new List<string>(0);
-        }
+        public string RetornarConteudoAdultoOuSensivel(ImageAnalysis analiseRealizada) =>
+            $"{(analiseRealizada.Adult.IsAdultContent ? "Possui" : "Não possui")} conteúdo adulto ({analiseRealizada.Adult.AdultScore * 100:n2}% de certeza). {(analiseRealizada.Adult.IsRacyContent ? "Possui" : "Não possui")} conteúdo sensível ({analiseRealizada.Adult.RacyScore * 100:n2}% de certeza).";
 
-        public ICollection<string> RetornarEsquemaDeCores(ImageAnalysis analiseRealizada)
-        {
-            Console.WriteLine("Color Scheme:");
-            Console.WriteLine("Is black and white?: " + analiseRealizada.Color.IsBWImg);
-            Console.WriteLine("Accent color: " + analiseRealizada.Color.AccentColor);
-            Console.WriteLine("Dominant background color: " + analiseRealizada.Color.DominantColorBackground);
-            Console.WriteLine("Dominant foreground color: " + analiseRealizada.Color.DominantColorForeground);
-            Console.WriteLine("Dominant colors: " + string.Join(",", analiseRealizada.Color.DominantColors));
-            return new List<string>(0);
-        }
+        public string RetornarEsquemaDeCores(ImageAnalysis analiseRealizada) =>
+            $"A imagem {(analiseRealizada.Color.IsBWImg ? "é" : "não é")} em preto e branco e as cores dominantes são: {string.Join(", ", analiseRealizada.Color.DominantColors)}";
 
         public ICollection<string> RetornarCelebridades(ImageAnalysis analiseRealizada)
         {
-            foreach (var category in analiseRealizada.Categories)
+            if (analiseRealizada.Categories.Count == 0)
+                return new List<string> { "Não foi possível encontrar celebridades na imagem." };
+
+            var celebridades = new List<string>();
+
+            foreach (var categoria in analiseRealizada.Categories)
             {
-                if (category.Detail?.Celebrities != null)
-                {
-                    foreach (var celeb in category.Detail.Celebrities)
-                    {
-                        Console.WriteLine($"{celeb.Name} with confidence {celeb.Confidence} at location {celeb.FaceRectangle.Left}, " +
-                          $"{celeb.FaceRectangle.Top}, {celeb.FaceRectangle.Height}, {celeb.FaceRectangle.Width}");
-                    }
-                }
+                if (categoria.Detail?.Celebrities is null || categoria.Detail?.Celebrities.Count == 0)
+                    continue;
+
+                celebridades.AddRange(
+                    categoria
+                        .Detail
+                        .Celebrities
+                        .Select(c => $"{c.Name} ({c.Confidence * 100:n2}% de certeza)"));
             }
-            return new List<string>(0);
+
+            return celebridades.Count == 0
+                ? new List<string> { "Não foi possível encontrar celebridades na imagem." }
+                : celebridades;
         }
 
         public ICollection<string> RetornarPontosDeReferencia(ImageAnalysis analiseRealizada)
         {
-            foreach (var category in analiseRealizada.Categories)
+            if (analiseRealizada.Categories.Count == 0)
+                return new List<string> { "Não foi possível encontrar pontos de referência na imagem." };
+
+            var pontosDeReferencia = new List<string>();
+
+            foreach (var categoria in analiseRealizada.Categories)
             {
-                if (category.Detail?.Landmarks != null)
-                {
-                    foreach (var landmark in category.Detail.Landmarks)
-                    {
-                        Console.WriteLine($"{landmark.Name} with confidence {landmark.Confidence}");
-                    }
-                }
+                if (categoria.Detail?.Landmarks is null || categoria.Detail?.Landmarks.Count == 0)
+                    continue;
+
+                pontosDeReferencia.AddRange(
+                    categoria
+                        .Detail
+                        .Landmarks
+                        .Select(l => $"{l.Name} ({l.Confidence * 100:n2}% de certeza)"));
             }
-            return new List<string>(0);
+
+            return pontosDeReferencia.Count == 0
+                ? new List<string> { "Não foi possível encontrar pontos de referência na imagem." }
+                : pontosDeReferencia;
         }
     }
 }
