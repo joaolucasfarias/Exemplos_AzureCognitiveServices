@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -9,6 +10,10 @@ namespace AzureCognitiveServices
 {
     public class ComputerVisionModel : PageModel
     {
+
+        [BindProperty]
+        public IFormFile Arquivo { get; set; }
+
         public void OnGet()
         {
             var aaa = new ComputerVision.AnaliseDeImagem().AnalisarPorUrl("https://moderatorsampleimages.blob.core.windows.net/samples/sample16.png").Result;
