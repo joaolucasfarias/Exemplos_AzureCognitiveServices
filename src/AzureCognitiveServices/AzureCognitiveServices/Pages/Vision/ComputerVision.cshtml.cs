@@ -45,12 +45,10 @@ namespace AzureCognitiveServices
                 _analisarPorUrl = false;
 
                 imagem = caminhoDoArquivo;
-
-                Directory.Delete(pasta, true);
             }
 
             if (!_analisarPorUrl)
-                Directory.Delete(pasta, true);
+                Directory.Delete(imagem, true);
         }
     }
 }
