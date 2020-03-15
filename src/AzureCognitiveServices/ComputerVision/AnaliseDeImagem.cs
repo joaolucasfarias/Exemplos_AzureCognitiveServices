@@ -44,10 +44,10 @@ namespace ComputerVision
                     }, language: "pt");
         }
 
-        public ICollection<string> RetornarLegenda(ImageAnalysis analiseRealizada)
+        public string RetornarLegenda(ImageAnalysis analiseRealizada)
         {
             if (analiseRealizada.Description.Captions.Count == 0)
-                return new List<string> { "Não foi possível definir o que há na imagem." };
+                return "Não foi possível definir o que há na imagem.";
 
             var legendas = new List<string>(analiseRealizada.Description.Captions.Count);
 
@@ -57,13 +57,13 @@ namespace ComputerVision
                     .Captions
                     .Select(c => $"{c.Text} ({c.Confidence * 100:n2}% de certeza)"));
 
-            return legendas;
+            return string.Join(" - ", legendas);
         }
 
-        public ICollection<string> RetornarCategorias(ImageAnalysis analiseRealizada)
+        public string RetornarCategorias(ImageAnalysis analiseRealizada)
         {
             if (analiseRealizada.Categories.Count == 0)
-                return new List<string> { "Não foi possível categorizar a imagem." };
+                return "Não foi possível categorizar a imagem.";
 
             var categorias = new List<string>(analiseRealizada.Categories.Count);
 
@@ -72,7 +72,7 @@ namespace ComputerVision
                     .Categories
                     .Select(c => $"{c.Name} ({c.Score * 100:n2}% de certeza)"));
 
-            return categorias;
+            return string.Join(" - ", categorias);
         }
 
         public string RetornarTags(ImageAnalysis analiseRealizada)
@@ -85,10 +85,10 @@ namespace ComputerVision
                 .Aggregate(string.Empty, (atual, tag) => $"{atual}{tag.Name} ({tag.Confidence * 100:n2}% de certeza) - ");
         }
 
-        public ICollection<string> RetornarLogos(ImageAnalysis analiseRealizada)
+        public string RetornarLogos(ImageAnalysis analiseRealizada)
         {
             if (analiseRealizada.Brands.Count == 0)
-                return new List<string> { "Não foi possível identificar logos na imagem." };
+                return "Não foi possível identificar logos na imagem.";
 
             var logos = new List<string>(analiseRealizada.Brands.Count);
 
@@ -97,13 +97,13 @@ namespace ComputerVision
                     .Brands
                     .Select(l => $"{l.Name} ({l.Confidence * 100:n2}% de certeza)"));
 
-            return logos;
+            return string.Join(" - ", logos);
         }
 
-        public ICollection<string> RetornarRostos(ImageAnalysis analiseRealizada)
+        public string RetornarRostos(ImageAnalysis analiseRealizada)
         {
             if (analiseRealizada.Faces.Count == 0)
-                return new List<string> { "Não foi possível identificar rostos na imagem." };
+                return "Não foi possível identificar rostos na imagem.";
 
             var rostos = new List<string>(analiseRealizada.Faces.Count);
 
@@ -112,7 +112,7 @@ namespace ComputerVision
                     .Faces
                     .Select(f => $"Possivelmente {("female".Equals(f.Gender.ToString().ToLower()) ? "mulher" : "homem")} com {f.Age} anos."));
 
-            return rostos;
+            return string.Join(" - ", rostos);
         }
 
         public string RetornarConteudoAdultoOuSensivel(ImageAnalysis analiseRealizada) =>
@@ -121,10 +121,10 @@ namespace ComputerVision
         public string RetornarEsquemaDeCores(ImageAnalysis analiseRealizada) =>
             $"A imagem {(analiseRealizada.Color.IsBWImg ? "é" : "não é")} em preto e branco e as cores dominantes são: {string.Join(", ", analiseRealizada.Color.DominantColors)}";
 
-        public ICollection<string> RetornarCelebridades(ImageAnalysis analiseRealizada)
+        public string RetornarCelebridades(ImageAnalysis analiseRealizada)
         {
             if (analiseRealizada.Categories.Count == 0)
-                return new List<string> { "Não foi possível encontrar celebridades na imagem." };
+                return "Não foi possível encontrar celebridades na imagem.";
 
             var celebridades = new List<string>();
 
@@ -141,14 +141,14 @@ namespace ComputerVision
             }
 
             return celebridades.Count == 0
-                ? new List<string> { "Não foi possível encontrar celebridades na imagem." }
-                : celebridades;
+                ? "Não foi possível encontrar celebridades na imagem."
+                : string.Join(" - ", celebridades);
         }
 
-        public ICollection<string> RetornarPontosDeReferencia(ImageAnalysis analiseRealizada)
+        public string RetornarPontosDeReferencia(ImageAnalysis analiseRealizada)
         {
             if (analiseRealizada.Categories.Count == 0)
-                return new List<string> { "Não foi possível encontrar pontos de referência na imagem." };
+                return "Não foi possível encontrar pontos de referência na imagem.";
 
             var pontosDeReferencia = new List<string>();
 
@@ -165,8 +165,8 @@ namespace ComputerVision
             }
 
             return pontosDeReferencia.Count == 0
-                ? new List<string> { "Não foi possível encontrar pontos de referência na imagem." }
-                : pontosDeReferencia;
+                ? "Não foi possível encontrar pontos de referência na imagem."
+                : string.Join(" - ", pontosDeReferencia);
         }
     }
 }
