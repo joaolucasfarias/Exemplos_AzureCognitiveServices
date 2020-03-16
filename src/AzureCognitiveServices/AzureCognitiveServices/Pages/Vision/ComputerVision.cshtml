@@ -12,12 +12,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com uma URL</legend>
-            <form method="post" id="legenda">
+            <form method="post">
                 <div class="form-group">
                     <label for="url">URL de uma imagem:</label>
                     <input type="url" class="form-control" name="url" id="url" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="legenda" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -25,12 +26,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com um arquivo</legend>
-            <form method="post" enctype="multipart/form-data" id="legenda">
+            <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="arquivo">Arquivo de uma imagem:</label>
                     <input type="file" class="form-control-file" asp-for="Arquivo" id="arquivo" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="legenda" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -43,12 +45,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com uma URL</legend>
-            <form method="post" id="categoria">
+            <form method="post">
                 <div class="form-group">
                     <label for="url">URL de uma imagem:</label>
                     <input type="url" class="form-control" name="url" id="url" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="categoria" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -56,12 +59,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com um arquivo</legend>
-            <form method="post" enctype="multipart/form-data" id="categoria">
+            <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="arquivo">Arquivo de uma imagem:</label>
                     <input type="file" class="form-control-file" asp-for="Arquivo" id="arquivo" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="categoria" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -74,12 +78,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com uma URL</legend>
-            <form method="post" id="tags">
+            <form method="post">
                 <div class="form-group">
                     <label for="url">URL de uma imagem:</label>
                     <input type="url" class="form-control" name="url" id="url" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="tags" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -87,12 +92,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com um arquivo</legend>
-            <form method="post" enctype="multipart/form-data" id="tags">
+            <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="arquivo">Arquivo de uma imagem:</label>
                     <input type="file" class="form-control-file" asp-for="Arquivo" id="arquivo" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="tags" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -105,12 +111,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com uma URL</legend>
-            <form method="post" id="logo">
+            <form method="post">
                 <div class="form-group">
                     <label for="url">URL de uma imagem:</label>
                     <input type="url" class="form-control" name="url" id="url" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="logos" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -118,12 +125,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com um arquivo</legend>
-            <form method="post" enctype="multipart/form-data" id="logo">
+            <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="arquivo">Arquivo de uma imagem:</label>
                     <input type="file" class="form-control-file" asp-for="Arquivo" id="arquivo" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="logos" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -136,12 +144,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com uma URL</legend>
-            <form method="post" id="rostos">
+            <form method="post">
                 <div class="form-group">
                     <label for="url">URL de uma imagem:</label>
                     <input type="url" class="form-control" name="url" id="url" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="rostos" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -149,12 +158,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com um arquivo</legend>
-            <form method="post" enctype="multipart/form-data" id="rostos">
+            <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="arquivo">Arquivo de uma imagem:</label>
                     <input type="file" class="form-control-file" asp-for="Arquivo" id="arquivo" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="rostos" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -167,12 +177,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com uma URL</legend>
-            <form method="post" id="adulto">
+            <form method="post">
                 <div class="form-group">
                     <label for="url">URL de uma imagem:</label>
                     <input type="url" class="form-control" name="url" id="url" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="adulto" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -180,12 +191,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com um arquivo</legend>
-            <form method="post" enctype="multipart/form-data" id="adulto">
+            <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="arquivo">Arquivo de uma imagem:</label>
                     <input type="file" class="form-control-file" asp-for="Arquivo" id="arquivo" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="adulto" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -198,12 +210,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com uma URL</legend>
-            <form method="post" id="cores">
+            <form method="post">
                 <div class="form-group">
                     <label for="url">URL de uma imagem:</label>
                     <input type="url" class="form-control" name="url" id="url" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="cores" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -211,12 +224,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com um arquivo</legend>
-            <form method="post" enctype="multipart/form-data" id="cores">
+            <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="arquivo">Arquivo de uma imagem:</label>
                     <input type="file" class="form-control-file" asp-for="Arquivo" id="arquivo" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="cores" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -229,12 +243,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com uma URL</legend>
-            <form method="post" id="celebridades">
+            <form method="post">
                 <div class="form-group">
                     <label for="url">URL de uma imagem:</label>
                     <input type="url" class="form-control" name="url" id="url" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="celebridades" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -242,12 +257,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com um arquivo</legend>
-            <form method="post" enctype="multipart/form-data" id="celebridades">
+            <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="arquivo">Arquivo de uma imagem:</label>
                     <input type="file" class="form-control-file" asp-for="Arquivo" id="arquivo" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="celebridades" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -260,12 +276,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com uma URL</legend>
-            <form method="post" id="landmark">
+            <form method="post">
                 <div class="form-group">
                     <label for="url">URL de uma imagem:</label>
                     <input type="url" class="form-control" name="url" id="url" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="landmark" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -273,12 +290,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com um arquivo</legend>
-            <form method="post" enctype="multipart/form-data" id="landmark">
+            <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="arquivo">Arquivo de uma imagem:</label>
                     <input type="file" class="form-control-file" asp-for="Arquivo" id="arquivo" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="landmark" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -291,12 +309,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com uma URL</legend>
-            <form method="post" id="tudo">
+            <form method="post">
                 <div class="form-group">
                     <label for="url">URL de uma imagem:</label>
                     <input type="url" class="form-control" name="url" id="url" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="tudo" id="tipo" />
             </form>
         </fieldset>
     </div>
@@ -304,12 +323,13 @@
     <div class="col-6">
         <fieldset>
             <legend>Testar com um arquivo</legend>
-            <form method="post" enctype="multipart/form-data" id="tudo">
+            <form method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="arquivo">Arquivo de uma imagem:</label>
                     <input type="file" class="form-control-file" asp-for="Arquivo" id="arquivo" />
                 </div>
                 <button type="submit" class="btn btn-primary">Analisar imagem</button>
+                <input type="hidden" value="tudo" id="tipo" />
             </form>
         </fieldset>
     </div>
