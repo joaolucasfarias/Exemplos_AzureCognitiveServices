@@ -116,7 +116,7 @@ namespace ComputerVision
         }
 
         public string RetornarConteudoAdultoOuSensivel(ImageAnalysis analiseRealizada) =>
-            $"{(analiseRealizada.Adult.IsAdultContent ? "Possui" : "Não possui")} conteúdo adulto ({analiseRealizada.Adult.AdultScore * 100:n2}% de certeza). {(analiseRealizada.Adult.IsRacyContent ? "Possui" : "Não possui")} conteúdo sensível ({analiseRealizada.Adult.RacyScore * 100:n2}% de certeza).";
+            $"{(analiseRealizada.Adult.IsAdultContent ? "Possui" : "Não possui")} conteúdo adulto (score de conteúdo adulto: {analiseRealizada.Adult.AdultScore:n5}). {(analiseRealizada.Adult.IsRacyContent ? "Possui" : "Não possui")} conteúdo sensível (score de conteúdo sensível: {analiseRealizada.Adult.RacyScore:n5}).";
 
         public string RetornarEsquemaDeCores(ImageAnalysis analiseRealizada) =>
             $"A imagem {(analiseRealizada.Color.IsBWImg ? "é" : "não é")} em preto e branco e as cores dominantes são: {string.Join(", ", analiseRealizada.Color.DominantColors)}";
