@@ -6,3 +6,66 @@
 
 <h1>Projetos</h1>
 
+<br />
+<br />
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalNovoProjeto" disabled="@(!Model.PodeAdicionarNovosProjetos)">
+    Novo projeto
+</button>
+
+<br />
+<br />
+<br />
+
+@if (Model.Projetos.Any())
+{
+    <fieldset>
+        <legend>Projetos já existentes</legend>
+        @foreach (var projeto in Model.Projetos)
+        {
+            <div class="card" style="width: 25rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@projeto.Name</h5>
+                    <p class="card-text">Tags: @Model.ListarTags(projeto).Aggregate(string.Empty, (atual, tag) => $"{atual}{tag.Name}; ")</p>
+                    <a href="#" class="card-link">Treinar neste projeto</a>
+                    <a href="#" class="card-link">Predizer neste projeto</a>
+                </div>
+            </div>
+        }
+    </fieldset>
+}
+
+@if (Model.PodeAdicionarNovosProjetos)
+{
+    <div class="modal fade" id="modalNovoProjeto" tabindex="-1" role="dialog" aria-labelledby="modalNovoProjetoLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNovoProjetoLabel">Novo projeto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="nome">* Nome do projeto:</label>
+                            <input type="text" class="form-control" name="nome" id="nome" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="tags">* Tags do projeto:</label>
+                            <input type="text" class="form-control" name="tags" id="tags" required aria-describedby="ajudaParaTags" />
+                            <small id="ajudaParaTags" class="text-muted">
+                                Tags representam o que você <strong>VAI</strong> adicionar ao projeto. Separe-as por ;
+                            </small>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Adicionar projeto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
