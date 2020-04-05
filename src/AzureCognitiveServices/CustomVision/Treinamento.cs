@@ -1,6 +1,5 @@
 ﻿using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -73,10 +72,7 @@ namespace CustomVision
             EnviarResultadosParaPedicao(projeto, treinamento);
         }
 
-        private void EnviarResultadosParaPedicao(Project projeto, Iteration treinamento)
-        {
-            var nomeDoTreinamento = $"treinamento{DateTime.Now:ddMMyyhhmmss}";
-            _servicoCognitivoDeVisaoPersonalizadaTreinamento.PublishIteration(projeto.Id, treinamento.Id, nomeDoTreinamento, _idDoRecursoDePredicao);
-        }
+        private void EnviarResultadosParaPedicao(Project projeto, Iteration treinamento) =>
+            _servicoCognitivoDeVisaoPersonalizadaTreinamento.PublishIteration(projeto.Id, treinamento.Id, "treeClassModel", _idDoRecursoDePredicao);
     }
 }
