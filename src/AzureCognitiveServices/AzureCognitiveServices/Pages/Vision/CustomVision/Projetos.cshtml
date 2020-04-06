@@ -59,6 +59,7 @@
             <div class="card" style="width: 25rem;">
                 <div class="card-body">
                     <h5 class="card-title">@projeto.Name</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@projeto.Description</h6>
                     <p class="card-text">Tags: @Model.ListarTags(projeto).Aggregate(string.Empty, (atual, tag) => $"{atual}{tag.Name}; ")</p>
                     <a href="#" class="card-link" data-toggle="modal" data-target="#modalTagsDoProjeto-@projeto.Id">Adicionar tag</a>
                     <a href="#" class="card-link">Treinar</a>
