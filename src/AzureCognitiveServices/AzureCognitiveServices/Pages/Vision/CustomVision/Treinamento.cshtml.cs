@@ -21,6 +21,8 @@ namespace AzureCognitiveServices
 
         public IEnumerable<Tag> Tags { get; private set; }
 
+        public string Mensagem { get; private set; }
+
         [BindProperty]
         public IFormFile Arquivo { get; set; }
 
@@ -34,6 +36,10 @@ namespace AzureCognitiveServices
         {
             Projeto = _treinamento.ListarProjetos().FirstOrDefault(p => idDoProjeto.Equals(p.Id.ToString()));
             Tags = _treinamento.ListarTags(Projeto);
+        }
+
+        public void OnPost(string idDoProjeto)
+        { 
         }
     }
 }
