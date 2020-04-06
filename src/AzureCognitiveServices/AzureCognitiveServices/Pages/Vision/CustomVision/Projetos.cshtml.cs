@@ -8,17 +8,23 @@ namespace AzureCognitiveServices
 {
     public class ProjetosModel : PageModel
     {
-        private Treinamento _treinamento;
+        private readonly Treinamento _treinamento;
 
         public IEnumerable<Project> Projetos { get; private set; }
 
         public bool PodeAdicionarNovosProjetos { get; private set; }
 
-        public ProjetosModel() =>
+        public ProjetosModel()
+        {
             _treinamento = new Treinamento();
-
-        public void OnGet() =>
             ListarProjetos();
+        }
+
+        private void ListarProjetos()
+        {
+            Projetos = _treinamento.ListarProjetos();
+            PodeAdicionarNovosProjetos = Projetos.Count() < 2;
+        }
 
         public void OnPost()
         {
@@ -30,27 +36,22 @@ namespace AzureCognitiveServices
                 CriarProjeto(nome, descricao);
             else
                 CriarTag(nome, descricao);
-
-            ListarProjetos();
         }
 
-        private void CriarProjeto(string nome, string descricao) =>
+        private void CriarProjeto(string nome, string descricao)
+        {
             _treinamento.CriarProjeto(nome, descricao);
+            ListarProjetos();
+        }
 
         private void CriarTag(string nome, string descricao)
         {
             var idDoProjeto = Request.Form["idDoProjeto"];
 
             _treinamento.CriarTag(
-                Projetos.FirstOrDefault(p => idDoProjeto.Equals(p.Id)),
+                Projetos.FirstOrDefault(p => idDoProjeto.Equals(p.Id.ToString())),
                 nome,
                 descricao);
-        }
-
-        private void ListarProjetos()
-        {
-            Projetos = _treinamento.ListarProjetos();
-            PodeAdicionarNovosProjetos = Projetos.Count() < 2;
         }
 
         public IEnumerable<Tag> ListarTags(Project projeto) =>
