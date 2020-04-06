@@ -18,10 +18,7 @@ namespace AzureCognitiveServices
             _treinamento = new Treinamento();
 
         public void OnGet() =>
-            RecuperarProjetos();
-
-        public IEnumerable<Tag> ListarTags(Project projeto) =>
-            _treinamento.ListarTags(projeto);
+            ListarProjetos();
 
         public void OnPost()
         {
@@ -34,7 +31,7 @@ namespace AzureCognitiveServices
             else
                 CriarTag(nome, descricao);
 
-            RecuperarProjetos();
+            ListarProjetos();
         }
 
         private void CriarProjeto(string nome, string descricao) =>
@@ -50,10 +47,13 @@ namespace AzureCognitiveServices
                 descricao);
         }
 
-        private void RecuperarProjetos()
+        private void ListarProjetos()
         {
             Projetos = _treinamento.ListarProjetos();
             PodeAdicionarNovosProjetos = Projetos.Count() < 2;
         }
+
+        public IEnumerable<Tag> ListarTags(Project projeto) =>
+            _treinamento.ListarTags(projeto);
     }
 }
