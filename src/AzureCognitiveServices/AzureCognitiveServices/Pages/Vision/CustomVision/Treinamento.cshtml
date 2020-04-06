@@ -4,5 +4,52 @@
     ViewData["Title"] = "Treinamento";
 }
 
-<h1>Treinamento</h1>
+<h1>Treinamento do projeto @Model.Projeto.Name</h1>
 
+<form method="post">
+    <fieldset>
+        <legend>Envie uma imagem por URL <strong>OU</strong> por arquivo</legend>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="url">URL de uma imagem:</label>
+                    <input type="url" class="form-control" name="url" id="url" />
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="form-group">
+                    <label for="arquivo">Arquivo de uma imagem:</label>
+                    <input type="file" class="form-control-file" asp-for="Arquivo" id="arquivo" />
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <br />
+    <br />
+
+    <div class="row">
+        <fieldset>
+            <legend>Selecione todas as tags que se relacionam com a imagem</legend>
+            <div class="col-12">
+                <div class="form-group">
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <div class="custom-control custom-switch custom-control-inline">
+                            <input type="checkbox" class="custom-control-input" id="@tag.Id" name="tags" value="@tag.Id">
+                            <label class="custom-control-label" for="@tag.Id">@tag.Name</label>
+                        </div>
+                    }
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+    <br />
+    <br />
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Treinar</button>
+    </div>
+</form>
