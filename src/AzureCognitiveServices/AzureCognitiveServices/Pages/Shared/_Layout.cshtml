@@ -25,19 +25,14 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Vision
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" asp-page="/Vision/Face">Face</a></li>
-                                <li><a class="dropdown-item" asp-page="/Vision/ComputerVision">Visão Computacional</a></li>
-                                <li class="dropdown-submenu">
-                                    <a class="dropdown-item dropdown-toggle" href="#">Visão Personalizada</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" asp-page="/Vision/CustomVision/Projetos">Projetos</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" asp-page="/Vision/Face">Face</a>
+                                <a class="dropdown-item" asp-page="/Vision/ComputerVision">Visão Computacional</a>
+                                <a class="dropdown-item" asp-page="/Vision/CustomVision/Projetos">Visão Personalizada</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
