@@ -19,12 +19,17 @@ namespace AzureCognitiveServices
 
         public Project Projeto { get; private set; }
 
-        public IEnumerable<Tag> Tags { get; private set; }
+        public IEnumerable<Tag> TagsDoProjeto { get; private set; }
 
         public string Mensagem { get; private set; }
 
+        public bool Erro { get; private set; }
+
         [BindProperty]
         public IFormFile Arquivo { get; set; }
+
+        [BindProperty]
+        public IList<string> Tags { get; set; }
 
         public TreinamentoModel(IWebHostEnvironment environment)
         {
@@ -32,14 +37,49 @@ namespace AzureCognitiveServices
             _treinamento = new Treinamento();
         }
 
-        public void OnGet(string idDoProjeto)
+        public void OnGet(string idDoProjeto) =>
+            CarregarProjeto(idDoProjeto);
+
+        private void CarregarProjeto(string idDoProjeto)
         {
             Projeto = _treinamento.ListarProjetos().FirstOrDefault(p => idDoProjeto.Equals(p.Id.ToString()));
-            Tags = _treinamento.ListarTags(Projeto);
+            TagsDoProjeto = _treinamento.ListarTags(Projeto);
         }
 
         public void OnPost(string idDoProjeto)
-        { 
+        {
+            CarregarProjeto(idDoProjeto);
+
+            var url = Request.Form["url"];
+
+            if (!CamposPreenchidosCorretamente(url))
+            {
+                Erro = true;
+                return;
+            }
+        }
+
+        private bool CamposPreenchidosCorretamente(string url)
+        {
+            if (string.IsNullOrWhiteSpace(url) && Arquivo is null)
+            {
+                Mensagem = "É necessário enviar uma imagem por URL OU por arquivo.";
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(url) && !(Arquivo is null))
+            {
+                Mensagem = "É necessário escolher apenas UM método de envio de imagem.";
+                return false;
+            }
+
+            if (!Tags.Any())
+            {
+                Mensagem = "É necessário escolher pelo menos uma tag.";
+                return false;
+            }
+
+            return true;
         }
     }
 }
