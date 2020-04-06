@@ -64,8 +64,8 @@
                             <h6 class="card-subtitle mb-2 text-muted">@projeto.Description</h6>
                             <p class="card-text">Tags: @Model.ListarTags(projeto).Aggregate(string.Empty, (atual, tag) => $"{atual}{tag.Name}; ")</p>
                             <a href="#" class="card-link" data-toggle="modal" data-target="#modalTagsDoProjeto-@projeto.Id">Adicionar tag</a>
-                            <a href="#" class="card-link">Treinar</a>
-                            <a href="#" class="card-link">Predizer</a>
+                            <a asp-page="/Vision/CustomVision/Treinamento?idDoProjeto=@projeto.Id" class="card-link">Treinar</a>
+                            <a asp-page="/Vision/CustomVision/Predicao?idDoProjeto=@projeto.Id" class="card-link">Predizer</a>
                         </div>
                     </div>
                 </div>
