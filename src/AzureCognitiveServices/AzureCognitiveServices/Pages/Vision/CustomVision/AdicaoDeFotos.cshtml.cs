@@ -74,7 +74,7 @@ namespace AzureCognitiveServices
                 Directory.Delete(pasta, true);
             }
 
-            Mensagem = "Imagem adicionada e projeto treinado com sucesso!";
+            Mensagem = "Imagem adicionada com sucesso!";
         }
 
         private bool ErroAoPreencherCampos()
