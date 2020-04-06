@@ -2,6 +2,11 @@
 @model AzureCognitiveServices.TreinamentoModel
 @{
     ViewData["Title"] = "Treinamento";
+
+    var corDoAlerta = "success";
+    if (Model.Erro)
+        corDoAlerta = "danger";
+
 }
 
 <h1>Treinamento do projeto @Model.Projeto.Name</h1>
@@ -34,10 +39,10 @@
             <legend>Selecione todas as tags que se relacionam com a imagem</legend>
             <div class="col-12">
                 <div class="form-group">
-                    @foreach (var tag in Model.Tags)
+                    @foreach (var tag in Model.TagsDoProjeto)
                     {
                         <div class="custom-control custom-switch custom-control-inline">
-                            <input type="checkbox" class="custom-control-input" id="@tag.Id" name="tags" value="@tag.Id">
+                            <input type="checkbox" class="custom-control-input" id="@tag.Id" name="Tags" value="@tag.Id">
                             <label class="custom-control-label" for="@tag.Id">@tag.Name</label>
                         </div>
                     }
@@ -56,7 +61,7 @@
 
 @if (!string.IsNullOrWhiteSpace(Model.Mensagem))
 {
-    <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <div class="alert alert-@corDoAlerta alert-dismissible fade show" role="alert">
         @Model.Mensagem
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
