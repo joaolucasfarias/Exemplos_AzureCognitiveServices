@@ -42,8 +42,6 @@ namespace CustomVision
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.CreateImagesFromUrls(
                 projeto.Id,
                 new ImageUrlCreateBatch(urls, tags.Select(t => t.Id).ToList()));
-
-            Treinar(projeto);
         }
 
         public void AdicionarImagemPorArquivo(Project projeto, string localDoArquivo, IEnumerable<Tag> tags)
@@ -54,11 +52,9 @@ namespace CustomVision
                 projeto.Id,
                 arquivo,
                 tags.Select(t => t.Id).ToList());
-
-            Treinar(projeto);
         }
 
-        private void Treinar(Project projeto)
+        public void Treinar(Project projeto)
         {
             var treinamento = _servicoCognitivoDeVisaoPersonalizadaTreinamento.TrainProject(projeto.Id);
 
