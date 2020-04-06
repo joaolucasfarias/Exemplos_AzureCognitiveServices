@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using CustomVision;
-using System.IO;
+﻿using CustomVision;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace AzureCognitiveServices
 {
@@ -50,36 +48,58 @@ namespace AzureCognitiveServices
         {
             CarregarProjeto(idDoProjeto);
 
-            var url = Request.Form["url"];
+            if (ErroAoPreencherCampos()) return;
 
-            if (!CamposPreenchidosCorretamente(url))
+            var tagsEscolhidas = TagsDoProjeto
+                .Where(tagDoProjeto => Tags.Any(t => tagDoProjeto.Id.ToString().Equals(t)));
+
+            if (Arquivo is null)
             {
-                Erro = true;
-                return;
+                var url = Request.Form["url"];
+                _treinamento.AdicionarImagemPorUrl(Projeto, url, tagsEscolhidas);
             }
+            else
+            {
+                var pasta = Path.Combine(_environment.ContentRootPath, "imagens");
+                if (!Directory.Exists(pasta))
+                    Directory.CreateDirectory(pasta);
+
+                var caminhoDoArquivo = Path.Combine(_environment.ContentRootPath, "imagens", Arquivo.FileName);
+
+                using (var fileStream = new FileStream(caminhoDoArquivo, FileMode.Create))
+                    Arquivo.CopyTo(fileStream);
+
+                _treinamento.AdicionarImagemPorArquivo(Projeto, caminhoDoArquivo, tagsEscolhidas);
+
+                Directory.Delete(pasta, true);
+            }
+
+            Mensagem = "Imagem adicionada e projeto treinado com sucesso!";
         }
 
-        private bool CamposPreenchidosCorretamente(string url)
+        private bool ErroAoPreencherCampos()
         {
+            var url = Request.Form["url"];
+
             if (string.IsNullOrWhiteSpace(url) && Arquivo is null)
             {
                 Mensagem = "É necessário enviar uma imagem por URL OU por arquivo.";
-                return false;
+                return Erro = true;
             }
 
             if (!string.IsNullOrWhiteSpace(url) && !(Arquivo is null))
             {
                 Mensagem = "É necessário escolher apenas UM método de envio de imagem.";
-                return false;
+                return Erro = true;
             }
 
             if (!Tags.Any())
             {
                 Mensagem = "É necessário escolher pelo menos uma tag.";
-                return false;
+                return Erro = true;
             }
 
-            return true;
+            return Erro = false;
         }
     }
 }
