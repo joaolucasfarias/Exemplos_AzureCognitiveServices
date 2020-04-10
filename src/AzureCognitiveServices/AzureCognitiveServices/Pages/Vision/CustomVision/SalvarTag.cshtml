@@ -1,8 +1,39 @@
 ﻿@page
 @model AzureCognitiveServices.SalvarTagModel
 @{
-    ViewData["Title"] = "SalvarTag";
+    ViewData["Title"] = "Salvar Tag";
 }
 
-<h1>SalvarTag</h1>
+<h1>Salvar Tag @Model.Tag?.Name</h1>
 
+<p>@Model.Projeto?.Name</p>
+
+<form method="post">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="nome">* Tag:</label>
+                <input type="text" value="@Model.Tag?.Name" class="form-control" name="nome" id="nome" required aria-describedby="ajudaParaTag" />
+                <small id="ajudaParaTag" class="text-muted">
+                    Tags representam o que você <strong>VAI</strong> adicionar ao projeto. Adicione uma.
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="descricao">Descrição da tag:</label>
+                <textarea class="form-control" name="descricao" id="descricao" rows="4">@Model.Tag?.Description</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Limpar campos</button>
+                <button type="submit" class="btn btn-primary">Salvar tag</button>
+            </div>
+        </div>
+    </div>
+</form>
