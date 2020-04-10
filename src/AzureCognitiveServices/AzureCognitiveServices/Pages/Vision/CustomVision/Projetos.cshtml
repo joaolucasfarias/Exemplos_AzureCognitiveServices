@@ -11,24 +11,7 @@
     <br />
     <br />
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalNovoProjeto">
-        Novo projeto
-    </button>
-
-    <div class="modal fade" id="modalNovoProjeto" tabindex="-1" role="dialog" aria-labelledby="modalNovoProjetoLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalNovoProjetoLabel">Novo projeto</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-    <br />
+    <a asp-page="/Vision/CustomVision/SalvarProjeto" class="btn btn-primary">Novo Projeto</a>
 }
 
 @if (Model.Projetos.Any())
