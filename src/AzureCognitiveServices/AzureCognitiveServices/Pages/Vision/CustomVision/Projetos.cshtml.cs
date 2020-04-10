@@ -32,16 +32,7 @@ namespace AzureCognitiveServices
             var nome = Request.Form["nome"];
             var descricao = Request.Form["descricao"];
 
-            if ("projeto".Equals(tipo))
-                CriarProjeto(nome, descricao);
-            else
-                CriarTag(nome, descricao);
-        }
-
-        private void CriarProjeto(string nome, string descricao)
-        {
-            _treinamento.CriarProjeto(nome, descricao);
-            ListarProjetos();
+            CriarTag(nome, descricao);
         }
 
         private void CriarTag(string nome, string descricao)

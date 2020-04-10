@@ -31,7 +31,7 @@
                             <h6 class="card-subtitle mb-2 text-muted">@projeto.Description</h6>
                             <p class="card-text">Tags: @Model.ListarTags(projeto).Aggregate(string.Empty, (atual, tag) => $"{atual}{tag.Name} ({tag.ImageCount} fotos); ")</p>
                             <a asp-page="/Vision/CustomVision/SalvarProjeto" asp-route-idDoProjeto="@projeto.Id" class="card-link">Editar</a>
-                            <a href="#" class="card-link" data-toggle="modal" data-target="#modalTagsDoProjeto-@projeto.Id">Adicionar tag</a>
+                            <a asp-page="/Vision/CustomVision/TagsDoProjeto" asp-route-idDoProjeto="@projeto.Id" class="card-link">Tags</a>
                             <a asp-page="/Vision/CustomVision/AdicaoDeFotos" asp-route-idDoProjeto="@projeto.Id" class="card-link">Adicionar foto</a>
                             <a asp-page="/Vision/CustomVision/Predicao" asp-route-idDoProjeto="@projeto.Id" class="card-link">Predizer</a>
                         </div>
