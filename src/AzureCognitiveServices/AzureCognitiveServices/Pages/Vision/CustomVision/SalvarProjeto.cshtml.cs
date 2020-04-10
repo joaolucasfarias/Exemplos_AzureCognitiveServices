@@ -9,7 +9,7 @@ namespace AzureCognitiveServices
     {
         private readonly Treinamento _treinamento;
 
-        public Project Projeto { get; set; }
+        public Project Projeto { get; private set; }
 
         public SalvarProjetoModel() =>
             _treinamento = new Treinamento();
