@@ -26,6 +26,12 @@ namespace AzureCognitiveServices
             PodeAdicionarNovosProjetos = Projetos.Count() < 2;
         }
 
+        public void OnPost()
+        {
+            _treinamento.ExcluirProjeto(Request.Form["idDoProjeto"]);
+            ListarProjetos();
+        }
+
         public IEnumerable<Tag> ListarTags(Project projeto) =>
             _treinamento.ListarTags(projeto);
     }

@@ -30,44 +30,36 @@
                             <h5 class="card-title">@projeto.Name</h5>
                             <h6 class="card-subtitle mb-2 text-muted">@projeto.Description</h6>
                             <p class="card-text">Tags: @Model.ListarTags(projeto).Aggregate(string.Empty, (atual, tag) => $"{atual}{tag.Name} ({tag.ImageCount} fotos); ")</p>
-                            <a asp-page="/Vision/CustomVision/SalvarProjeto" asp-route-idDoProjeto="@projeto.Id" class="card-link">Editar</a>
-                            <a asp-page="/Vision/CustomVision/TagsDoProjeto" asp-route-idDoProjeto="@projeto.Id" class="card-link">Tags</a>
-                            <a asp-page="/Vision/CustomVision/AdicaoDeFotos" asp-route-idDoProjeto="@projeto.Id" class="card-link">Adicionar foto</a>
-                            <a asp-page="/Vision/CustomVision/Predicao" asp-route-idDoProjeto="@projeto.Id" class="card-link">Predizer</a>
+                            <div class="card-footer bg-transparent">
+                                <a asp-page="/Vision/CustomVision/SalvarProjeto" asp-route-idDoProjeto="@projeto.Id" class="card-link">Editar</a>
+                                <a asp-page="/Vision/CustomVision/TagsDoProjeto" asp-route-idDoProjeto="@projeto.Id" class="card-link">Tags</a>
+                                <a asp-page="/Vision/CustomVision/AdicaoDeFotos" asp-route-idDoProjeto="@projeto.Id" class="card-link">Adicionar foto</a>
+                                <a asp-page="/Vision/CustomVision/Predicao" asp-route-idDoProjeto="@projeto.Id" class="card-link">Predizer</a>
+                                <a href="#" class="card-link" data-toggle="modal" data-target="#modalProjeto-@projeto.Id">Excluir</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="modal fade" id="modalTagsDoProjeto-@projeto.Id" tabindex="-1" role="dialog" aria-labelledby="modalTagsDoProjeto-@projeto.Id" aria-hidden="true">
+                <div class="modal fade" id="modalProjeto-@projeto.Id" tabindex="-1" role="dialog" aria-labelledby="modalProjeto-@projeto.Id" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalTagsDoProjeto-@projeto.Id-Label">Tag do projeto @projeto.Name</h5>
+                                <h5 class="modal-title" id="modalProjeto-@projeto.Id-Label">Projeto @projeto.Name</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form method="post">
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="nome">* Tag:</label>
-                                        <input type="text" class="form-control" name="nome" id="nome" required aria-describedby="ajudaParaTag" />
-                                        <small id="ajudaParaTag" class="text-muted">
-                                            Tags representam o que você <strong>VAI</strong> adicionar ao projeto. Adicione uma.
-                                        </small>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="descricao">Descrição da tag:</label>
-                                        <textarea class="form-control" name="descricao" id="descricao" rows="2"></textarea>
-                                    </div>
-                                    <input type="hidden" value="tag" name="tipo" id="tipo" />
+                            <div class="modal-body">
+                                <p>Tem certeza que deseja excluir o projeto?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <form method="post">
                                     <input type="hidden" value="@projeto.Id" name="idDoProjeto" id="idDoProjeto" />
-                                </div>
-                                <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <button type="submit" class="btn btn-primary">Adicionar tag</button>
-                                </div>
-                            </form>
+                                    <button type="submit" class="btn btn-danger">Excluir projeto</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
