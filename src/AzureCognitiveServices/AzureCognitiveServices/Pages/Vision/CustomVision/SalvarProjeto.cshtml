@@ -1,8 +1,35 @@
 ﻿@page
 @model AzureCognitiveServices.SalvarProjetoModel
 @{
-    ViewData["Title"] = "SalvarProjeto";
+    ViewData["Title"] = "Salvar Projeto";
 }
 
-<h1>SalvarProjeto</h1>
+<h1>Salvar Projeto</h1>
 
+<form method="post">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="nome">* Nome do projeto:</label>
+                <input type="text" class="form-control" name="nome" id="nome" required />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label for="descricao">Descrição do projeto:</label>
+                <textarea class="form-control" name="descricao" id="descricao" rows="4"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <input type="hidden" value="" name="id" id="id" />
+            <div class="form-group">
+                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Limpar</button>
+                <button type="submit" class="btn btn-primary">Adicionar projeto</button>
+            </div>
+        </div>
+    </div>
+</form>
