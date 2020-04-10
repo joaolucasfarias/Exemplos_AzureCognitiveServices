@@ -1,5 +1,6 @@
 ﻿using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,8 +29,8 @@ namespace CustomVision
         public void CriarProjeto(string nome, string descricao = "") =>
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.CreateProject(nome, descricao);
 
-        public void EditarProjeto(Project projeto) =>
-            _servicoCognitivoDeVisaoPersonalizadaTreinamento.UpdateProject(projeto.Id, projeto);
+        public void EditarProjeto(string idDoProjeto, Project projeto) =>
+            _servicoCognitivoDeVisaoPersonalizadaTreinamento.UpdateProject(new Guid(idDoProjeto), projeto);
 
         public void ExcluirProjeto(Project projeto) =>
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.DeleteProject(projeto.Id);
@@ -43,8 +44,8 @@ namespace CustomVision
         public void CriarTag(Project projeto, string nome, string descricao = "") =>
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.CreateTag(projeto.Id, nome, descricao);
 
-        public void EditarTag(Project projeto, Tag tag) =>
-            _servicoCognitivoDeVisaoPersonalizadaTreinamento.UpdateTag(projeto.Id, tag.Id, tag);
+        public void EditarTag(Project projeto, string idDaTag, Tag tag) =>
+            _servicoCognitivoDeVisaoPersonalizadaTreinamento.UpdateTag(projeto.Id, new Guid(idDaTag), tag);
 
         public void ExcluirTag(Project projeto, Tag tag) =>
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.DeleteTag(projeto.Id, tag.Id);
