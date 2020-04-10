@@ -26,25 +26,6 @@ namespace AzureCognitiveServices
             PodeAdicionarNovosProjetos = Projetos.Count() < 2;
         }
 
-        public void OnPost()
-        {
-            var tipo = Request.Form["tipo"];
-            var nome = Request.Form["nome"];
-            var descricao = Request.Form["descricao"];
-
-            CriarTag(nome, descricao);
-        }
-
-        private void CriarTag(string nome, string descricao)
-        {
-            var idDoProjeto = Request.Form["idDoProjeto"];
-
-            _treinamento.CriarTag(
-                Projetos.FirstOrDefault(p => idDoProjeto.Equals(p.Id.ToString())),
-                nome,
-                descricao);
-        }
-
         public IEnumerable<Tag> ListarTags(Project projeto) =>
             _treinamento.ListarTags(projeto);
     }
