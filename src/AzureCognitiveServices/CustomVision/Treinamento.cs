@@ -32,8 +32,8 @@ namespace CustomVision
         public void EditarProjeto(string idDoProjeto, Project projeto) =>
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.UpdateProject(new Guid(idDoProjeto), projeto);
 
-        public void ExcluirProjeto(Project projeto) =>
-            _servicoCognitivoDeVisaoPersonalizadaTreinamento.DeleteProject(projeto.Id);
+        public void ExcluirProjeto(string idDoProjeto) =>
+            _servicoCognitivoDeVisaoPersonalizadaTreinamento.DeleteProject(new Guid(idDoProjeto));
 
         public Project CarregarProjeto(string idDoProjeto) =>
             ListarProjetos().FirstOrDefault(p => p.Id.ToString().Equals(idDoProjeto)) ?? new Project();
@@ -47,8 +47,8 @@ namespace CustomVision
         public void EditarTag(Project projeto, string idDaTag, Tag tag) =>
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.UpdateTag(projeto.Id, new Guid(idDaTag), tag);
 
-        public void ExcluirTag(Project projeto, Tag tag) =>
-            _servicoCognitivoDeVisaoPersonalizadaTreinamento.DeleteTag(projeto.Id, tag.Id);
+        public void ExcluirTag(Project projeto, string idDaTag) =>
+            _servicoCognitivoDeVisaoPersonalizadaTreinamento.DeleteTag(projeto.Id, new Guid(idDaTag));
 
         public Tag CarregarTag(Project projeto, string idDaTag) =>
             ListarTags(projeto).FirstOrDefault(t => t.Id.ToString().Equals(idDaTag)) ?? new Tag();
