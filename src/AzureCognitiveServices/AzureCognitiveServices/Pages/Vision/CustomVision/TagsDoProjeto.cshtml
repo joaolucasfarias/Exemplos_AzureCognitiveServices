@@ -8,7 +8,7 @@
 
 <p>@Model.Projeto?.Description</p>
 
-<a asp-page="/Vision/CustomVision/SalvarTag" class="btn btn-primary">Nova Tag</a>
+<a asp-page="/Vision/CustomVision/SalvarTag" asp-route-idDoProjeto="@Model.Projeto?.Id" class="btn btn-primary">Nova Tag</a>
 
 <br />
 
@@ -24,7 +24,7 @@
                         <h6 class="card-subtitle mb-2 text-muted">@tag.Description</h6>
                         <p class="card-text">Esta tag contém @tag.ImageCount fotos</p>
                         <div class="card-footer bg-transparent">
-                            <a asp-page="/Vision/CustomVision/SalvarTag" asp-route-idDaTag="@tag.Id" class="card-link">Editar</a>
+                            <a asp-page="/Vision/CustomVision/SalvarTag" asp-route-idDoProjeto="@Model.Projeto?.Id" asp-route-idDaTag="@tag.Id" class="card-link">Editar</a>
                             <a href="#" class="card-link" data-toggle="modal" data-target="#modalTag-@tag.Id">Excluir</a>
                         </div>
                     </div>
