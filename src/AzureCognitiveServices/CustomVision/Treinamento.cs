@@ -34,6 +34,9 @@ namespace CustomVision
         public void ExcluirProjeto(Project projeto) =>
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.DeleteProject(projeto.Id);
 
+        public Project CarregarProjeto(string idDoProjeto) =>
+            ListarProjetos().FirstOrDefault(p => idDoProjeto.Equals(p.Id.ToString()));
+
         public IEnumerable<Tag> ListarTags(Project projeto) =>
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.GetTags(projeto.Id);
 
@@ -45,6 +48,9 @@ namespace CustomVision
 
         public void ExcluirTag(Project projeto, Tag tag) =>
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.DeleteTag(projeto.Id, tag.Id);
+
+        public Tag CarregarTag(Project projeto, string idDaTag) =>
+            ListarTags(projeto).FirstOrDefault(t => idDaTag.Equals(t.Id.ToString()));
 
         public void AdicionarImagemPorUrl(Project projeto, string url, IEnumerable<Tag> tags)
         {
