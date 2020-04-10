@@ -1,8 +1,60 @@
 ﻿@page
 @model AzureCognitiveServices.TagsDoProjetoModel
 @{
-    ViewData["Title"] = "TagsDoProjeto";
+    ViewData["Title"] = "Tags Do Projeto";
 }
 
-<h1>TagsDoProjeto</h1>
+<h1>Tags Do Projeto @Model.Projeto?.Name</h1>
+
+<p>@Model.Projeto?.Description</p>
+
+<br />
+<br />
+
+<a asp-page="/Vision/CustomVision/SalvarTag" class="btn btn-primary">Nova Tag</a>
+
+
+<fieldset>
+    <legend>Tags já existentes</legend>
+    <div class="card-deck">
+        @foreach (var tag in Model.Tags)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@tag.Name</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@tag.Description</h6>
+                    <p class="card-text">Esta tag contém @tag.ImageCount fotos</p>
+                    <div class="card-footer bg-transparent">
+                        <a asp-page="/Vision/CustomVision/SalvarTag" asp-route-idDaTag="@tag.Id" class="card-link">Editar</a>
+                        <a href="#" class="card-link bg-danger" data-toggle="modal" data-target="#modalTag-@tag.Id">Excluir</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalTag-@tag.Id" tabindex="-1" role="dialog" aria-labelledby="modalTag-@tag.Id" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalTag-@tag.Id-Label">@tag.Name</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form method="delete">
+                            <div class="modal-body">
+                                <p>Tem certeza que deseja excluir a tag?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="hidden" value="@tag.Id" name="idDaTag" id="idDaTag" />
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-danger">Excluir tag</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</fieldset>
+
 
