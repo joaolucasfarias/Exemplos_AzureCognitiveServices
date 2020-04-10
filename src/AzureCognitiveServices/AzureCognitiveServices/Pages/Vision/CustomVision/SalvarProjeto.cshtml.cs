@@ -1,4 +1,5 @@
 ﻿using CustomVision;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
 
@@ -16,21 +17,22 @@ namespace AzureCognitiveServices
         public void OnGet(string idDoProjeto) =>
             Projeto = _treinamento.CarregarProjeto(idDoProjeto);
 
-        public void OnPost(string idDoProjeto)
+        public IActionResult OnPost(string idDoProjeto)
         {
             var nome = Request.Form["nome"];
             var descricao = Request.Form["descricao"];
 
-            if (!string.IsNullOrWhiteSpace(idDoProjeto))
+            if (string.IsNullOrWhiteSpace(idDoProjeto))
                 _treinamento.CriarProjeto(nome, descricao);
             else
-            {
-                Projeto.Name = nome;
-                Projeto.Description = descricao;
-                _treinamento.EditarProjeto(Projeto);
-            }
+                _treinamento.EditarProjeto(idDoProjeto,
+                    new Project
+                    {
+                        Name = nome,
+                        Description = descricao
+                    });
 
-            RedirectToPage("/Vision/CustomVision/Projetos");
+            return RedirectToPage("/Vision/CustomVision/Projetos");
         }
     }
 }
