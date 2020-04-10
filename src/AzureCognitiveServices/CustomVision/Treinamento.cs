@@ -28,11 +28,23 @@ namespace CustomVision
         public void CriarProjeto(string nome, string descricao = "") =>
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.CreateProject(nome, descricao);
 
+        public void EditarProjeto(Project projeto) =>
+            _servicoCognitivoDeVisaoPersonalizadaTreinamento.UpdateProject(projeto.Id, projeto);
+
+        public void ExcluirProjeto(Project projeto) =>
+            _servicoCognitivoDeVisaoPersonalizadaTreinamento.DeleteProject(projeto.Id);
+
         public IEnumerable<Tag> ListarTags(Project projeto) =>
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.GetTags(projeto.Id);
 
         public void CriarTag(Project projeto, string nome, string descricao = "") =>
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.CreateTag(projeto.Id, nome, descricao);
+
+        public void EditarTag(Project projeto, Tag tag) =>
+            _servicoCognitivoDeVisaoPersonalizadaTreinamento.UpdateTag(projeto.Id, tag.Id, tag);
+
+        public void ExcluirTag(Project projeto, Tag tag) =>
+            _servicoCognitivoDeVisaoPersonalizadaTreinamento.DeleteTag(projeto.Id, tag.Id);
 
         public void AdicionarImagemPorUrl(Project projeto, string url, IEnumerable<Tag> tags)
         {
