@@ -14,7 +14,7 @@ namespace CustomVision
         private const string _endpoint = "<seu endpoint>";
         private const string _idDoRecursoDePredicao = "<id do recurso de predição>";
 
-        private ICustomVisionTrainingClient _servicoCognitivoDeVisaoPersonalizadaTreinamento;
+        private readonly ICustomVisionTrainingClient _servicoCognitivoDeVisaoPersonalizadaTreinamento;
 
         public Treinamento() =>
             _servicoCognitivoDeVisaoPersonalizadaTreinamento = new CustomVisionTrainingClient()

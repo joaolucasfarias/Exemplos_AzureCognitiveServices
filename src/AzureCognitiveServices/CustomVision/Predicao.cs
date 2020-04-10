@@ -13,7 +13,7 @@ namespace CustomVision
         private const string _chaveDePredicao = "<sua chave de predição>";
         private const string _endpoint = "<seu endpoin>";
 
-        private ICustomVisionPredictionClient _servicoCognitivoDeVisaoPersonalizadaPredicao;
+        private readonly ICustomVisionPredictionClient _servicoCognitivoDeVisaoPersonalizadaPredicao;
 
         public Predicao() =>
             _servicoCognitivoDeVisaoPersonalizadaPredicao = new CustomVisionPredictionClient()
