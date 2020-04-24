@@ -10,9 +10,9 @@ namespace AzureCognitiveServices
     {
         private readonly Treinamento _treinamento;
 
-        public Project Projeto { get; set; }
+        public Project Projeto { get; private set; }
 
-        public IList<Tag> Tags { get; set; }
+        public IList<Tag> Tags { get; private set; }
 
         public TagsDoProjetoModel() =>
             _treinamento = new Treinamento();
