@@ -15,17 +15,26 @@ namespace CustomVision
 
         private readonly ICustomVisionPredictionClient _servicoCognitivoDeVisaoPersonalizadaPredicao;
 
-        public Predicao() =>
+        private readonly Treinamento _treinamento;
+
+        public Predicao()
+        {
             _servicoCognitivoDeVisaoPersonalizadaPredicao = new CustomVisionPredictionClient()
             {
                 ApiKey = _chaveDePredicao,
                 Endpoint = _endpoint
             };
 
+            _treinamento = new Treinamento();
+        }
+
         public IEnumerable<string> ClassificarPorUrl(string idDoProjeto, string url)
         {
             var resultadoDaClassificacao = _servicoCognitivoDeVisaoPersonalizadaPredicao
-                .ClassifyImageUrl(new Guid(idDoProjeto), "treeClassModel1", new ImageUrl(url));
+                .ClassifyImageUrl(
+                new Guid(idDoProjeto),
+                UltimaIteracaoRealizada(idDoProjeto),
+                new ImageUrl(url));
 
             return AnalisarResultadoDaClassificacao(resultadoDaClassificacao);
         }
@@ -35,10 +44,16 @@ namespace CustomVision
             var arquivo = new FileStream(localDoArquivo, FileMode.Open);
 
             var resultadoDaClassificacao = _servicoCognitivoDeVisaoPersonalizadaPredicao
-                .ClassifyImage(new Guid(idDoProjeto), "treeClassModel", arquivo);
+                .ClassifyImage(
+                new Guid(idDoProjeto),
+                UltimaIteracaoRealizada(idDoProjeto),
+                arquivo);
 
             return AnalisarResultadoDaClassificacao(resultadoDaClassificacao);
         }
+
+        private string UltimaIteracaoRealizada(string idDoProjeto) =>
+            _treinamento.RetornarUltimaIteracaoRealizada(idDoProjeto);
 
         private static IEnumerable<string> AnalisarResultadoDaClassificacao(ImagePrediction resultadoDaClassificacao) =>
             resultadoDaClassificacao.Predictions
