@@ -92,5 +92,12 @@ namespace CustomVision
             var nomeDePublicacao = $"pub{DateTime.Now:ddMMyyHHmmss}";
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.PublishIteration(new Guid(idDoProjeto), treinamento.Id, nomeDePublicacao, _idDoRecursoDePredicao);
         }
+
+        public string RetornarUltimaIteracaoRealizada(string idDoProjeto) =>
+            _servicoCognitivoDeVisaoPersonalizadaTreinamento.GetIterations(new Guid(idDoProjeto))
+            .Where(i => !string.IsNullOrWhiteSpace(i.PublishName))
+            .OrderByDescending(i => i.Created)
+            .FirstOrDefault()
+            .PublishName;
     }
 }
