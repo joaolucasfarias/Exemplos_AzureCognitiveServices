@@ -53,41 +53,44 @@ namespace CustomVision
         public Tag CarregarTag(Project projeto, string idDaTag) =>
             ListarTags(projeto).FirstOrDefault(t => t.Id.ToString().Equals(idDaTag)) ?? new Tag();
 
-        public void AdicionarImagemPorUrl(Project projeto, string url, IEnumerable<Tag> tags)
+        public void AdicionarImagemPorUrl(string idDoProjeto, string url, IEnumerable<string> idDastags)
         {
             var urls = new List<ImageUrlCreateEntry>(1)
             { new ImageUrlCreateEntry(url) };
 
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.CreateImagesFromUrls(
-                projeto.Id,
-                new ImageUrlCreateBatch(urls, tags.Select(t => t.Id).ToList()));
+               new Guid(idDoProjeto),
+                new ImageUrlCreateBatch(urls, idDastags.Select(id => new Guid(id)).ToList()));
         }
 
-        public void AdicionarImagemPorArquivo(Project projeto, string localDoArquivo, IEnumerable<Tag> tags)
+        public void AdicionarImagemPorArquivo(string idDoProjeto, string localDoArquivo, IEnumerable<string> idDastags)
         {
             var arquivo = new FileStream(localDoArquivo, FileMode.Open);
 
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.CreateImagesFromData(
-                projeto.Id,
+                new Guid(idDoProjeto),
                 arquivo,
-                tags.Select(t => t.Id).ToList());
+                idDastags.Select(id => new Guid(id)).ToList());
         }
 
-        public void Treinar(Project projeto)
+        public void Treinar(string idDoProjeto)
         {
-            var treinamento = _servicoCognitivoDeVisaoPersonalizadaTreinamento.TrainProject(projeto.Id);
+            var treinamento = _servicoCognitivoDeVisaoPersonalizadaTreinamento.TrainProject(new Guid(idDoProjeto));
 
             while ("Training".Equals(treinamento.Status))
             {
                 Thread.Sleep(1000);
 
-                treinamento = _servicoCognitivoDeVisaoPersonalizadaTreinamento.GetIteration(projeto.Id, treinamento.Id);
+                treinamento = _servicoCognitivoDeVisaoPersonalizadaTreinamento.GetIteration(new Guid(idDoProjeto), treinamento.Id);
             }
 
-            EnviarResultadosParaPedicao(projeto, treinamento);
+            EnviarResultadosParaPedicao(idDoProjeto, treinamento);
         }
 
-        private void EnviarResultadosParaPedicao(Project projeto, Iteration treinamento) =>
-            _servicoCognitivoDeVisaoPersonalizadaTreinamento.PublishIteration(projeto.Id, treinamento.Id, "treeClassModel", _idDoRecursoDePredicao);
+        private void EnviarResultadosParaPedicao(string idDoProjeto, Iteration treinamento)
+        {
+            var nomeDePublicacao = $"pub{DateTime.Now:ddMMyyHHmmss}";
+            _servicoCognitivoDeVisaoPersonalizadaTreinamento.PublishIteration(new Guid(idDoProjeto), treinamento.Id, nomeDePublicacao, _idDoRecursoDePredicao);
+        }
     }
 }
