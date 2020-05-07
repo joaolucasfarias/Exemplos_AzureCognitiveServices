@@ -1,5 +1,5 @@
 ﻿using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
-using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,7 +8,7 @@ using ImageUrl = Microsoft.Azure.CognitiveServices.Vision.CustomVision.Predictio
 
 namespace CustomVision
 {
-    class Predicao
+    public class Predicao
     {
         private const string _chaveDePredicao = "<sua chave de predição>";
         private const string _endpoint = "<seu endpoin>";
@@ -22,26 +22,26 @@ namespace CustomVision
                 Endpoint = _endpoint
             };
 
-        public IEnumerable<string> ClassificarPorUrl(Project projeto, string url)
+        public IEnumerable<string> ClassificarPorUrl(string idDoProjeto, string url)
         {
             var resultadoDaClassificacao = _servicoCognitivoDeVisaoPersonalizadaPredicao
-                .ClassifyImageUrl(projeto.Id, "treeClassModel", new ImageUrl(url));
+                .ClassifyImageUrl(new Guid(idDoProjeto), "treeClassModel1", new ImageUrl(url));
 
             return AnalisarResultadoDaClassificacao(resultadoDaClassificacao);
         }
 
-        public IEnumerable<string> ClassificarPorArquivo(Project projeto, string localDoArquivo)
+        public IEnumerable<string> ClassificarPorArquivo(string idDoProjeto, string localDoArquivo)
         {
             var arquivo = new FileStream(localDoArquivo, FileMode.Open);
 
             var resultadoDaClassificacao = _servicoCognitivoDeVisaoPersonalizadaPredicao
-                .ClassifyImage(projeto.Id, "treeClassModel", arquivo);
+                .ClassifyImage(new Guid(idDoProjeto), "treeClassModel", arquivo);
 
             return AnalisarResultadoDaClassificacao(resultadoDaClassificacao);
         }
 
         private static IEnumerable<string> AnalisarResultadoDaClassificacao(ImagePrediction resultadoDaClassificacao) =>
             resultadoDaClassificacao.Predictions
-                .Select(resultado => $"Pode ser \"{resultado.TagName}\" com {resultado.Probability:P2} de probabilidade");
+                .Select(resultado => $"Pode ser \"{resultado.TagName}\" com {resultado.Probability:P2} de probabilidade").ToList();
     }
 }
