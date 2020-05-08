@@ -73,6 +73,16 @@ namespace CustomVision
                 idDastags.Select(id => new Guid(id)).ToList());
         }
 
+        public bool PodeTreinarProjeto(string idDoProjeto)
+        {
+            var projeto = CarregarProjeto(idDoProjeto);
+            var tags = ListarTags(projeto);
+            return PodeTreinarProjeto(tags);
+        }
+
+        public static bool PodeTreinarProjeto(IEnumerable<Tag> tags) =>
+            tags.All(t => t.ImageCount >= 5);
+
         public void Treinar(string idDoProjeto)
         {
             var treinamento = _servicoCognitivoDeVisaoPersonalizadaTreinamento.TrainProject(new Guid(idDoProjeto));
