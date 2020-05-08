@@ -68,6 +68,8 @@ namespace AzureCognitiveServices
                 Directory.Delete(pasta, true);
             }
 
+            PodePredizer = true;
+
             CarregarProjeto(idDoProjeto);
         }
     }
