@@ -32,8 +32,18 @@ namespace CustomVision
         public void EditarProjeto(string idDoProjeto, Project projeto) =>
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.UpdateProject(new Guid(idDoProjeto), projeto);
 
-        public void ExcluirProjeto(string idDoProjeto) =>
+        public void ExcluirProjeto(string idDoProjeto)
+        {
+            ExcluirIteracoes(idDoProjeto);
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.DeleteProject(new Guid(idDoProjeto));
+        }
+
+        public void ExcluirIteracoes(string idDoProjeto)
+        {
+            var iteracoes = _servicoCognitivoDeVisaoPersonalizadaTreinamento.GetIterations(new Guid(idDoProjeto));
+            foreach (var iteracao in iteracoes.Where(i => !string.IsNullOrWhiteSpace(i.PublishName)))
+                _servicoCognitivoDeVisaoPersonalizadaTreinamento.UnpublishIteration(new Guid(idDoProjeto), iteracao.Id);
+        }
 
         public Project CarregarProjeto(string idDoProjeto) =>
             ListarProjetos().FirstOrDefault(p => p.Id.ToString().Equals(idDoProjeto)) ?? new Project();
