@@ -91,13 +91,6 @@ namespace CustomVision
             return true;
         }
 
-        public bool PodeTreinarProjeto(string idDoProjeto)
-        {
-            var projeto = CarregarProjeto(idDoProjeto);
-            var tags = ListarTags(projeto);
-            return PodeTreinarProjeto(tags);
-        }
-
         public static bool PodeTreinarProjeto(IEnumerable<Tag> tags) =>
             tags.All(t => t.ImageCount >= 5);
 
@@ -106,6 +99,9 @@ namespace CustomVision
             var nomeDePublicacao = $"pub{DateTime.Now:ddMMyyHHmmss}";
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.PublishIteration(new Guid(idDoProjeto), treinamento.Id, nomeDePublicacao, _idDoRecursoDePredicao);
         }
+
+        public bool PodePredizer(string idDoProjeto) =>
+            _servicoCognitivoDeVisaoPersonalizadaTreinamento.GetIterations(new Guid(idDoProjeto)).Count > 0;
 
         public string RetornarUltimaIteracaoRealizada(string idDoProjeto) =>
             _servicoCognitivoDeVisaoPersonalizadaTreinamento.GetIterations(new Guid(idDoProjeto))
