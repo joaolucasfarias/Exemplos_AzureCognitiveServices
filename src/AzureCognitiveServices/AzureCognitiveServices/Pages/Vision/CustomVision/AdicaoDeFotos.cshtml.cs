@@ -19,9 +19,13 @@ namespace AzureCognitiveServices
 
         public IEnumerable<Tag> TagsDoProjeto { get; private set; }
 
-        public string Mensagem { get; private set; }
+        public string MensagemFotos { get; private set; }
 
-        public bool Erro { get; private set; }
+        public bool ErroFotos { get; private set; }
+
+        public string MensagemTreinamento { get; private set; }
+
+        public bool ErroTreinamento { get; private set; }
 
         [BindProperty]
         public IFormFile Arquivo { get; set; }
@@ -46,17 +50,16 @@ namespace AzureCognitiveServices
 
         public void OnPost(string idDoProjeto)
         {
-            CarregarProjeto(idDoProjeto);
-
-            if (ErroAoPreencherCampos()) return;
-
-            var tagsEscolhidas = TagsDoProjeto
-                .Where(tagDoProjeto => Tags.Any(t => tagDoProjeto.Id.ToString().Equals(t)));
+            if (ErroAoPreencherCampos())
+            {
+                CarregarProjeto(idDoProjeto);
+                return;
+            }
 
             if (Arquivo is null)
             {
                 var url = Request.Form["url"];
-                _treinamento.AdicionarImagemPorUrl(Projeto, url, tagsEscolhidas);
+                _treinamento.AdicionarImagemPorUrl(idDoProjeto, url, Tags);
             }
             else
             {
@@ -69,12 +72,23 @@ namespace AzureCognitiveServices
                 using (var fileStream = new FileStream(caminhoDoArquivo, FileMode.Create))
                     Arquivo.CopyTo(fileStream);
 
-                _treinamento.AdicionarImagemPorArquivo(Projeto, caminhoDoArquivo, tagsEscolhidas);
+                _treinamento.AdicionarImagemPorArquivo(idDoProjeto, caminhoDoArquivo, Tags);
 
                 Directory.Delete(pasta, true);
             }
 
-            Mensagem = "Imagem adicionada com sucesso!";
+            CarregarProjeto(idDoProjeto);
+
+            MensagemFotos = "Imagem adicionada com sucesso!";
+
+            if (!_treinamento.Treinar(idDoProjeto, TagsDoProjeto))
+            {
+                ErroTreinamento = true;
+                MensagemTreinamento = "Porém, não é possível TREINAR o modelo sem que TODAS as tags tenham, ao menos, 5 fotos cada.";
+                return;
+            }
+
+            MensagemTreinamento = "Treinamento realizado com sucesso!";
         }
 
         private bool ErroAoPreencherCampos()
@@ -83,23 +97,23 @@ namespace AzureCognitiveServices
 
             if (string.IsNullOrWhiteSpace(url) && Arquivo is null)
             {
-                Mensagem = "É necessário enviar uma imagem por URL OU por arquivo.";
-                return Erro = true;
+                MensagemFotos = "É necessário enviar uma imagem por URL OU por arquivo.";
+                return ErroFotos = true;
             }
 
             if (!string.IsNullOrWhiteSpace(url) && !(Arquivo is null))
             {
-                Mensagem = "É necessário escolher apenas UM método de envio de imagem.";
-                return Erro = true;
+                MensagemFotos = "É necessário escolher apenas UM método de envio de imagem.";
+                return ErroFotos = true;
             }
 
             if (!Tags.Any())
             {
-                Mensagem = "É necessário escolher pelo menos uma tag.";
-                return Erro = true;
+                MensagemFotos = "É necessário escolher pelo menos uma tag.";
+                return ErroFotos = true;
             }
 
-            return Erro = false;
+            return ErroFotos = false;
         }
     }
 }

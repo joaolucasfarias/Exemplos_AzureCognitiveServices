@@ -3,10 +3,13 @@
 @{
     ViewData["Title"] = "Treinamento";
 
-    var corDoAlerta = "success";
-    if (Model.Erro)
-        corDoAlerta = "danger";
+    var corDoAlertaFotos = "success";
+    if (Model.ErroFotos)
+        corDoAlertaFotos = "danger";
 
+    var corDoAlertaTreinamento = "success";
+    if (Model.ErroTreinamento)
+        corDoAlertaTreinamento = "danger";
 }
 
 <h1>Treinamento do projeto @Model.Projeto.Name</h1>
@@ -59,10 +62,20 @@
     </div>
 </form>
 
-@if (!string.IsNullOrWhiteSpace(Model.Mensagem))
+@if (!string.IsNullOrWhiteSpace(Model.MensagemFotos))
 {
-    <div class="alert alert-@corDoAlerta alert-dismissible fade show" role="alert">
-        @Model.Mensagem
+    <div class="alert alert-@corDoAlertaFotos alert-dismissible fade show" role="alert">
+        @Model.MensagemFotos
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.MensagemTreinamento))
+{
+    <div class="alert alert-@corDoAlertaTreinamento alert-dismissible fade show" role="alert">
+        @Model.MensagemTreinamento
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
