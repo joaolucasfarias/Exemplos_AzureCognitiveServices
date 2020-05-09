@@ -101,7 +101,7 @@ namespace CustomVision
             return true;
         }
 
-        public static bool PodeTreinarProjeto(IEnumerable<Tag> tags) =>
+        private static bool PodeTreinarProjeto(IEnumerable<Tag> tags) =>
             tags.All(t => t.ImageCount >= 5);
 
         private void EnviarResultadosParaPedicao(string idDoProjeto, Iteration treinamento)
