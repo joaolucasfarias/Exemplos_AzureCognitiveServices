@@ -1,10 +1,9 @@
 ﻿using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction;
+using Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ImagePrediction = Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models.ImagePrediction;
-using ImageUrl = Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.Models.ImageUrl;
 
 namespace CustomVision
 {
