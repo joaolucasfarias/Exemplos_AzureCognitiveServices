@@ -8,6 +8,7 @@
     <ProjectReference Include="..\ComputerVision\ComputerVision.csproj" />
     <ProjectReference Include="..\CustomVision\CustomVision.csproj" />
     <ProjectReference Include="..\Face\Face.csproj" />
+    <ProjectReference Include="..\TextToSpeech\TextToSpeech.csproj" />
   </ItemGroup>
 
   <ItemGroup>
