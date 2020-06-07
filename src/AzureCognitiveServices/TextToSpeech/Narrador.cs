@@ -17,7 +17,7 @@ namespace TextToSpeech
 
         public string Pais { get; private set; }
 
-        public static ICollection<Narrador> NarradoresDisponiveis() =>
+        public static IEnumerable<Narrador> NarradoresDisponiveis() =>
             new List<Narrador>(20)
             {
                 new Narrador("Heloísa", "pt-BR-HeloisaRUS", "Brasil"),
