@@ -1,16 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
+using System.Linq;
 using TextToSpeech;
 
 namespace AzureCognitiveServices
 {
     public class TextToSpeechModel : PageModel
     {
-        public string Mensagem { get; private set; }
-
-        [BindProperty]
-        public Narrador Narrador { get; set; }
+        public string Mensagem { get; private set; } = string.Empty;
 
         public readonly IEnumerable<Narrador> Narradores;
 
@@ -20,7 +17,8 @@ namespace AzureCognitiveServices
         public void OnPost()
         {
             var textoParaFalar = Request.Form["textoParaFalar"];
-            Mensagem = new TranscricaoDeTexto().Falar(textoParaFalar, Narrador).Result;
-        }
+            var narrador = Narradores.FirstOrDefault(n => Request.Form["Narrador"].Equals(n.Codigo));
+            Mensagem = new TranscricaoDeTexto().Falar(textoParaFalar, narrador).Result;
+        }s
     }
 }

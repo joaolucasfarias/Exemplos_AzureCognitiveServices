@@ -15,17 +15,17 @@
         <div class="col-6">
             <div class="form-group">
                 <label for="textoParaFala">Texto para fala:</label>
-                <textarea class="form-control" name="textoParaFala" id="textoParaFala" rows="4" />
+                <textarea class="form-control" name="textoParaFala" id="textoParaFala" rows="4" required></textarea>
             </div>
         </div>
 
         <div class="col-6">
             <div class="form-group">
-                <label for="Narrador">Narrador:</label>
-                <select class="form-control" name="Narrador" id="Narrador">
+                <label for="narrador">Narrador:</label>
+                <select class="form-control" name="narrador" id="narrador" required>
                     @foreach (var narrador in Model.Narradores)
                     {
-                        <option value="@narrador">@narrador.Nome (@narrador.Pais)</option>
+                        <option value="@narrador.Codigo">@narrador.Nome (@narrador.Pais)</option>
                     }
                 </select>
             </div>

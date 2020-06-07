@@ -27,7 +27,6 @@ namespace TextToSpeech
             else if (resultado.Reason == ResultReason.Canceled)
             {
                 var cancelamento = SpeechSynthesisCancellationDetails.FromResult(resultado);
-                Console.WriteLine($"CANCELED: Reason={cancelamento.Reason}");
 
                 if (cancelamento.Reason == CancellationReason.Error)
                     return $"Erro: {cancelamento.ErrorDetails}";
