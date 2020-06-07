@@ -1,17 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
+using TextToSpeech;
 
 namespace AzureCognitiveServices
 {
     public class TextToSpeechModel : PageModel
     {
-        public void OnGet()
+        public string Mensagem { get; private set; }
+
+        [BindProperty]
+        public Narrador Narrador { get; set; }
+
+        public readonly IEnumerable<Narrador> Narradores;
+
+        public TextToSpeechModel() =>
+            Narradores = Narrador.NarradoresDisponiveis();
+
+        public void OnPost()
         {
-            TextToSpeech.TranscricaoDeTexto.Main();
+            var textoParaFalar = Request.Form["textoParaFalar"];
+            Mensagem = new TranscricaoDeTexto().Falar(textoParaFalar, Narrador).Result;
         }
     }
 }
