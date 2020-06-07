@@ -19,6 +19,6 @@ namespace AzureCognitiveServices
             var textoParaFalar = Request.Form["textoParaFalar"];
             var narrador = Narradores.FirstOrDefault(n => Request.Form["Narrador"].Equals(n.Codigo));
             Mensagem = new TranscricaoDeTexto().Falar(textoParaFalar, narrador).Result;
-        }s
+        }
     }
 }
