@@ -2,7 +2,7 @@
 
 namespace TextToSpeech
 {
-    class Narrador
+    public class Narrador
     {
         private Narrador(string nome, string codigo, string pais)
         {
