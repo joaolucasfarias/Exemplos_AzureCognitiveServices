@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TextToSpeech
+namespace SpeechToText
 {
     public class Idioma
     {

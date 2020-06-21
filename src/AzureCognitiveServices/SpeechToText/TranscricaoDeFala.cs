@@ -1,7 +1,6 @@
 ﻿using Microsoft.CognitiveServices.Speech;
 using System;
 using System.Threading.Tasks;
-using TextToSpeech;
 
 namespace SpeechToText
 {

@@ -2,7 +2,6 @@
 using SpeechToText;
 using System.Collections.Generic;
 using System.Linq;
-using TextToSpeech;
 
 namespace AzureCognitiveServices
 {
