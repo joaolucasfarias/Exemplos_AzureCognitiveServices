@@ -35,7 +35,7 @@ namespace SpeechTranslation
                 traducoes.AddRange(
                     resultado
                     .Translations
-                    .Select(r => $"Traduzido para \"{r.Key}\": \"{r.Value}\""));
+                    .Select(r => $"Traduzido para \"{NomearIdioma(r.Key)}\": \"{r.Value}\""));
 
                 return traducoes;
             }
@@ -52,5 +52,12 @@ namespace SpeechTranslation
 
             return semTraducao;
         }
+
+        private static string NomearIdioma(string codigo) =>
+            Idioma.IdiomasDisponiveis()
+                .Any(i => i.Codigo.ToLower().Contains(codigo.ToLower()))
+                    ? Idioma.IdiomasDisponiveis()
+                        .First(i => i.Codigo.ToLower().Contains(codigo.ToLower())).Nome
+                    : codigo;
     }
 }
