@@ -17,7 +17,7 @@ namespace SpeechTranslation
         public TraducaoDeFala() =>
             _configuracaoDaTraducao = SpeechTranslationConfig.FromEndpoint(new Uri(_endpoint), _chave);
 
-        public async Task<IList<string>> Ouvir(Idioma traduzirDe, IList<Idioma> traduzirPara)
+        public async Task<IList<string>> Ouvir(Idioma traduzirDe, IEnumerable<Idioma> traduzirPara)
         {
             _configuracaoDaTraducao.SpeechRecognitionLanguage = traduzirDe.Codigo;
 
