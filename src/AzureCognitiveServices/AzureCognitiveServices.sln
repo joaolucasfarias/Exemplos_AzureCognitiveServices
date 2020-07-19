@@ -17,7 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Speech", "Speech", "{2B5881
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextToSpeech", "TextToSpeech\TextToSpeech.csproj", "{22FD3525-FFB6-4887-A736-413F7EA03EC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeechToText", "SpeechToText\SpeechToText.csproj", "{FEC0F113-A4B7-4C6C-ABB2-F97CFDD7E7E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeechToText", "SpeechToText\SpeechToText.csproj", "{FEC0F113-A4B7-4C6C-ABB2-F97CFDD7E7E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeechTranslation", "SpeechTranslation\SpeechTranslation.csproj", "{6C5B372B-C769-4D19-B780-FC3E8187F613}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{FEC0F113-A4B7-4C6C-ABB2-F97CFDD7E7E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEC0F113-A4B7-4C6C-ABB2-F97CFDD7E7E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEC0F113-A4B7-4C6C-ABB2-F97CFDD7E7E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C5B372B-C769-4D19-B780-FC3E8187F613}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C5B372B-C769-4D19-B780-FC3E8187F613}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C5B372B-C769-4D19-B780-FC3E8187F613}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C5B372B-C769-4D19-B780-FC3E8187F613}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{B6E63BB4-4FDB-46F3-B005-E1E72BDB00B3} = {851FD9F3-4DDB-429D-BE5E-925E5488C33E}
 		{22FD3525-FFB6-4887-A736-413F7EA03EC5} = {2B5881D1-BA8D-48D4-B116-3076C124D656}
 		{FEC0F113-A4B7-4C6C-ABB2-F97CFDD7E7E2} = {2B5881D1-BA8D-48D4-B116-3076C124D656}
+		{6C5B372B-C769-4D19-B780-FC3E8187F613} = {2B5881D1-BA8D-48D4-B116-3076C124D656}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BF507A36-2095-4445-9B80-77B203231EFC}
