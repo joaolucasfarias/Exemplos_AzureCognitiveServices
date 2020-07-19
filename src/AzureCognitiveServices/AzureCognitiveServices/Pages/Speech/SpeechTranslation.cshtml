@@ -1,8 +1,60 @@
 ﻿@page
 @model AzureCognitiveServices.SpeechTranslationModel
 @{
-    ViewData["Title"] = "SpeechTranslation";
+    ViewData["Title"] = "Tradução de Fala";
+
+    var corDoAlert = Model.Mensagens.Any(m => m.ToLower().StartsWith("não"))
+        ? "danger"
+        : "success";
 }
 
-<h1>SpeechTranslation</h1>
+<h1>Tradução de Fala</h1>
 
+<form method="post">
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label for="traduzirDe">Traduzir de:</label>
+                <select class="form-control" name="traduzirDe" id="traduzirDe" required>
+                    @foreach (var idioma in Model.Idiomas)
+                    {
+                        <option value="@idioma.Codigo">@idioma.Nome</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <fieldset>
+                <legend>Selecione os idiomas alvos para tradução:</legend>
+                <div class="form-group">
+                    @foreach (var idioma in Model.Idiomas)
+                    {
+                        <div class="custom-control custom-switch custom-control-inline">
+                            <input type="checkbox" class="custom-control-input" id="@idioma.Codigo" name="traduzirPara" value="@idioma.Codigo">
+                            <label class="custom-control-label" for="@idioma.Codigo">@idioma.Nome</label>
+                        </div>
+                    }
+                </div>
+            </fieldset>
+        </div>
+
+    </div>
+
+    <br />
+    <br />
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Ouvir</button>
+    </div>
+</form>
+
+@foreach (var mensagem in Model.Mensagens)
+{
+    <div class="alert alert-@corDoAlert alert-dismissible fade show" role="alert">
+        @mensagem
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
